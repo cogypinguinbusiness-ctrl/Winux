@@ -9,9 +9,10 @@ as I am still relatively new to programming
 and began learning recently. 
 Contributions, suggestions, and improvements are welcome!
 
-#Installation
+# Installation
 
-first, fetch the Powershell installation script by executing:
+First, download and execute the PowerShell installation script 
+by running the following command in PowerShell:
 
 ```Powershell
 irm https://raw.githubusercontent.com/cogypinguinbusiness-ctrl/Winux/main/installer.ps1 | iex
