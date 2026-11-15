@@ -97,3 +97,11 @@ To install and configure the extension, follow the official setup guide:
 [Matugen Theme – Installation & Configuration Guide](https://marketplace.visualstudio.com/items?itemName=aaronwold.matugen-theme)
 
 > **Note:** The extension requires Matugen template files and configuration entries to function correctly. Make sure to follow the setup instructions in the guide to configure everything properly.
+
+# Credits & Special Thanks
+
+A huge thank you to the creators and maintainers of Matugen, Cava, Starship, the Matugen VS Code Extension, and Tacky Borders!
+
+Without your amazing work and contributions to the open-source community, this project wouldn't have been possible.
+
+Thank you for making tools that inspire others to create something of their own!
