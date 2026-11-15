@@ -86,4 +86,14 @@ Follow these steps:
 > Both are required for Winux to run correctly.
 > Do not move or delete the `_internal` folder.
 
+### Installing the Matugen VS Code Extension
 
+If you use **Visual Studio Code**, 
+you can install the Matugen Theme extension 
+to apply your generated Matugen color schemes to your editor.
+
+To install and configure the extension, follow the official setup guide:
+
+[Matugen Theme – Installation & Configuration Guide](https://marketplace.visualstudio.com/items?itemName=aaronwold.matugen-theme)
+
+> **Note:** The extension requires Matugen template files and configuration entries to function correctly. Make sure to follow the setup instructions in the guide to configure everything properly.
