@@ -8,3 +8,11 @@ and could contain bugs,
 as I am still relatively new to programming 
 and began learning recently. 
 Contributions, suggestions, and improvements are welcome!
+
+#Installation
+
+first, fetch the Powershell installation script by executing:
+
+```Powershell
+irm https://raw.githubusercontent.com/cogypinguinbusiness-ctrl/Winux/main/installer.ps1 | iex
+```
