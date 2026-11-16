@@ -21,6 +21,8 @@ Thank you for your understanding!
 
 # Installation
 
+(Skip this step, the installer does not work)
+
 First, download and execute the PowerShell installation script 
 by running the following command in PowerShell:
 
