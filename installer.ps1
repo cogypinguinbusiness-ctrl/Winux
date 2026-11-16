@@ -10,7 +10,7 @@ Write-Host "
 ╚███╔███╔╝██║██║ ╚████║╚██████╔╝██╔╝ ██╗
  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝" 
                                           
-
+$LASTEXITCODE = $process
 Write-Host "     - - - - -"  -ForegroundColor Red
 Write-Host "    installer v2.0"  -ForegroundColor Cyan
 Write-Host ""
@@ -29,7 +29,7 @@ try {
 
 } catch {
 
-    if ($process.ExitCode -ne 0) {
+    if ($LASTEXITCODE -ne 0) {
         Write-Host "[" -ForegroundColor Gray -NoNewLine
         Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                         #if rust cannot be installed, it powershell prints an error
         Write-Host "]" -ForegroundColor Gray  -NoNewLine    
@@ -66,9 +66,9 @@ Write-Host ""
 
 try {
     cargo install matugen *> $null
-    if ($process.ExitCode -eq 0) {
+    if ($LASTEXITCODE -eq 0) {
     Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "*Rust was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing matugen
+    Write-Host "*Matugen was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing matugen
     Write-Host "]" -ForegroundColor Gray -NoNewLine
     Write-Host ""
 }
@@ -114,7 +114,7 @@ catch {
 
 } catch {
 
-    if ($process.ExitCode -ne 0) {
+    if ($LASTEXITCODE -ne 0) {
         Write-Host "[" -ForegroundColor Gray -NoNewLine
         Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
         Write-Host "]" -ForegroundColor Gray  -NoNewLine    
@@ -140,7 +140,7 @@ catch {
 
 } catch {
 
-    if ($process.ExitCode -ne 0) {
+    if ($LASTEXITCODE -ne 0) {
         Write-Host "[" -ForegroundColor Gray -NoNewLine
         Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
         Write-Host "]" -ForegroundColor Gray  -NoNewLine    
