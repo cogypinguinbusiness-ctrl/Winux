@@ -1,50 +1,155 @@
+#Installer made by me, the creator of the Winux project
+#I hope everything work's as it should!
+#had to update the installer script because the old one didn't work properly!
+
 Write-Host "                                                                       
-  _____            ____  _____   ______    ____   ____                 
- |\    \   _____  |    ||\    \ |\     \  |    | |    |_____      _____
- | |    | /    /| |    | \\    \| \     \ |    | |    |\    \    /    /
- \/     / |    || |    |  \|    \  \     ||    | |    | \    \  /    / 
- /     /_  \   \/ |    |   |     \  |    ||    | |    |  \____\/____/  
-|     // \  \   \ |    |   |      \ |    ||    | |    |  /    /\    \  
-|    |/   \ |    ||    |   |    |\ \|    ||    | |    | /    /  \    \ 
-|\ ___/\   \|   /||____|   |____||\_____/||\___\_|____|/____/ /\ \____\
-| |   | \______/ ||    |   |    |/ \|   ||| |    |    ||    |/  \|    |
- \|___|/\ |    | ||____|   |____|   |___|/ \|____|____||____|    |____|
-    \(   \|____|/   \(       \(       )/      \(   )/    \(        )/  
-     '      )/       '        '       '        '   '      '        '   
-            '                                                          "
+██╗    ██╗██╗███╗   ██╗██╗   ██╗██╗  ██╗
+██║    ██║██║████╗  ██║██║   ██║╚██╗██╔╝
+██║ █╗ ██║██║██╔██╗ ██║██║   ██║ ╚███╔╝ 
+██║███╗██║██║██║╚██╗██║██║   ██║ ██╔██╗ 
+╚███╔███╔╝██║██║ ╚████║╚██████╔╝██╔╝ ██╗
+ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝" 
+                                          
 
-Write-Host "This is the Winux installer. It will install all the applications required for Winux to work."
+Write-Host "     - - - - -"  -ForegroundColor Red
+Write-Host "    installer v2.0"  -ForegroundColor Cyan
+Write-Host ""
+Write-Host "[" -ForegroundColor Gray -NoNewLine
+Write-Host "Installing rust..."   -ForegroundColor yellow -NoNewLine
+Write-Host "]" -ForegroundColor Gray -NoNewLine
+Write-Host ""
 
-Write-Host "[Installing Rust and Cargo...]"
-winget install --id Rustlang.Rustup -e *> $null
-cargo install matugen *> $null
-$answer = (Read-Host "Do you want to install cava [Y]es [N]o [A] yes to all").ToLower()
+try { 
 
-if ($answer -eq "y" -or $answer -eq "yes") {
-Write-Host "[Installing cava...]"
-winget install --id karlstav.cava -e *> $null
+    winget install --id Rustlang.Rustup -e *> $null
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "*Rust was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing rust
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""
+
+} catch {
+
+    if ($process.ExitCode -ne 0) {
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                         #if rust cannot be installed, it powershell prints an error
+        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
+        Write-Host ""                                      
+        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
+        Write-Host ""
+    }
+
 }
-elseif ($answer -eq "n" -or $answer -eq "no") {
-    Write-Host "Cava will be skipped"
+
+try {
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "Trying to refrash pwsh path..." -ForegroundColor Yellow -NoNewline  #Tries to refrash path
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                [Environment]::GetEnvironmentVariable("Path", "User")
+                Write-Host ""
+                if ($?) {  Write-Host "[" -ForegroundColor Gray -NoNewline
+                           Write-Host "*SUCCESSFUL*" -ForegroundColor Green -NoNewline  
+                           Write-Host "]" -ForegroundColor Gray -NoNewLine}
+                           Write-Host ""
+} catch {
+        Write-Host ""
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*FAILED TO REFRESH PATH!"   -ForegroundColor Red -NoNewLine 
+        Write-Host "]" -ForegroundColor Gray -NoNewLine
+        Write-Host ""
 }
-elseif ($answer -eq "a" -or $answer -eq "yes to all") {
-    Write-Host "[Installing cava...]"
+
+Write-Host "[" -ForegroundColor Gray -NoNewLine
+Write-Host "Installing matugen..."   -ForegroundColor yellow -NoNewLine
+Write-Host "]" -ForegroundColor Gray -NoNewLine
+Write-Host ""
+
+try {
+    cargo install matugen *> $null
+    if ($process.ExitCode -eq 0) {
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "*Rust was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing matugen
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""
+}
+ }
+catch {
+        Write-Host ""
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*FAILED TO INSTALL MATUGEN!"   -ForegroundColor Red -NoNewLine 
+        Write-Host "]" -ForegroundColor Gray -NoNewLine
+        Write-Host ""
+}
+    try {
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "Trying to refrash pwsh path..." -ForegroundColor Yellow -NoNewline  #Tries to refrash path
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                [Environment]::GetEnvironmentVariable("Path", "User")
+                Write-Host ""
+                if ($?) {  Write-Host "[" -ForegroundColor Gray -NoNewline
+                           Write-Host "*SUCCESSFUL*" -ForegroundColor Green -NoNewline  
+                           Write-Host "]" -ForegroundColor Gray -NoNewLine}
+                           Write-Host ""
+} catch {
+        Write-Host ""
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*FAILED TO REFRESH PATH!"   -ForegroundColor Red -NoNewLine 
+        Write-Host "]" -ForegroundColor Gray -NoNewLine
+        Write-Host ""
+}
+
+    Write-Host "[" -ForegroundColor Gray -NoNewLine
+    Write-Host "Installing cava..."   -ForegroundColor yellow -NoNewLine
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""   
+
+    try { 
+
     winget install --id karlstav.cava -e *> $null
-    Write-Host "[Installing Starship...]"
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "*Cava was installed successfully*" -ForegroundColor Green -NoNewline  
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""
+
+} catch {
+
+    if ($process.ExitCode -ne 0) {
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
+        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
+        Write-Host ""                                      
+        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
+        Write-Host ""
+    }
+
+}
+
+    Write-Host "[" -ForegroundColor Gray -NoNewLine
+    Write-Host "Installing starship..."   -ForegroundColor yellow -NoNewLine
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""   
+
+    try { 
+
     winget install --id Starship.Starship -e *> $null
+    Write-Host "[" -ForegroundColor Gray -NoNewline
+    Write-Host "*Starship was installed successfully*" -ForegroundColor Green -NoNewline  
+    Write-Host "]" -ForegroundColor Gray -NoNewLine
+    Write-Host ""
+
+} catch {
+
+    if ($process.ExitCode -ne 0) {
+        Write-Host "[" -ForegroundColor Gray -NoNewLine
+        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
+        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
+        Write-Host ""                                      
+        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
+        Write-Host ""
+    }
+
 }
 
-if ($answer -ne "a" -and $answer -ne "yes to all") {
-$banswer = (Read-Host "Do you want to install Starship [Y]es [N]o").ToLower()
-
-if ($banswer -eq "y" -or $banswer -eq "yes") {
-    Write-Host "[Installing Starship...]"
-    winget install --id Starship.Starship -e *> $null
-}
-elseif ($banswer -eq "n" -or $banswer -eq "no") {
-    Write-Host "Starship will be skipped"
-}
-  }
-
-Write-Host "[*] Installer finished successfully [*]"
+Write-Host " =============== [ FINISHED ] =============== "
 
