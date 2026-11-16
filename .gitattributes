@@ -1,2 +1,2 @@
-*.py linguist-detectable=true
-*.ps1 linguist-detectable=true
+src/** linguist-language=Python
+*.ps1 linguist-language=PowerShell
