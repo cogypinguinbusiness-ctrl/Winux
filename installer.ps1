@@ -10,7 +10,7 @@ Write-Host "
 ╚███╔███╔╝██║██║ ╚████║╚██████╔╝██╔╝ ██╗
  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝" 
                                           
-$LASTEXITCODE = $process
+
 Write-Host "     - - - - -"  -ForegroundColor Red
 Write-Host "    installer v2.0"  -ForegroundColor Cyan
 Write-Host ""
