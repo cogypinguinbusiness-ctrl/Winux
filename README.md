@@ -9,6 +9,16 @@ as I am still relatively new to programming
 and began learning recently. 
 Contributions, suggestions, and improvements are welcome!
 
+# !IMPORTANT
+
+The current PowerShell installer is not working as intended. Therefore, I will be providing a manual installation guide explaining how to install **Matugen** and all other required dependencies.
+
+Please follow the manual installation instructions until the installer has been fixed.
+
+Thank you for your understanding!
+
+
+
 # Installation
 
 First, download and execute the PowerShell installation script 
