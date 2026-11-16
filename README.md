@@ -12,9 +12,9 @@ Contributions, suggestions, and improvements are welcome!
 ## Winux Preview
 
 <p align="center">
-  <img src="assets/preview1.png" width="32%">
-  <img src="assets/preview2.png" width="32%">
-  <img src="assets/preview3.png" width="32%">
+  <img src="preview1.png" width="32%">
+  <img src="preview2.png" width="32%">
+  <img src="preview3.png" width="32%">
 </p>
 
 # !IMPORTANT
