@@ -11,7 +11,14 @@ Contributions, suggestions, and improvements are welcome!
 
 # !IMPORTANT
 
-The current PowerShell installer is not working as intended. Therefore, I will be providing a manual installation guide explaining how to install **Matugen** and all other required dependencies.
+
+The current PowerShell installer is not working as intended.
+The issue is most likely related to missing build dependencies, 
+particularly the required C/C++ linker needed to compile Matugen from source 
+using Rust's Cargo package manager.
+
+Therefore, I will be providing a manual installation guide explaining how to install **Matugen**
+and all other required dependencies.
 
 Please follow the manual installation instructions until the installer has been fixed.
 
