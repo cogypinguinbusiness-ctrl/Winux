@@ -22,14 +22,6 @@ irm https://raw.githubusercontent.com/cogypinguinbusiness-ctrl/Winux/main/instal
 The installer automatically sets up the dependencies required by Winux, 
 including **Matugen**, which is essential for generating color schemes.
 
-It can also install optional third-party applications, 
-such as **Cava** and **Starship**, 
-to enhance the appearance of your Windows Terminal.
-
-The installer guides you through the setup process, 
-allowing you to configure your installation 
-according to your preferences.
-
 ### Notice
 
 you also need to install **nerdfonts** if
