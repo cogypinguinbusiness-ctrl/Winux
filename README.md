@@ -9,6 +9,14 @@ as I am still relatively new to programming
 and began learning recently. 
 Contributions, suggestions, and improvements are welcome!
 
+## Winux Preview
+
+<p align="center">
+  <img src="assets/preview1.png" width="32%">
+  <img src="assets/preview2.png" width="32%">
+  <img src="assets/preview3.png" width="32%">
+</p>
+
 # !IMPORTANT
 
 
