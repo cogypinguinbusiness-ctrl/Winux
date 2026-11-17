@@ -17,20 +17,26 @@ Contributions, suggestions, and improvements are welcome!
   <img src="src/preview3.png" width="32%">
 </p>
 
-# !IMPORTANT
+## Possible Fix
 
+I have released the **third version of the PowerShell installer**. Please try running it first.
 
-The current PowerShell installer is not working as intended.
-The issue is most likely related to missing build dependencies, 
-particularly the required C/C++ linker needed to compile Matugen from source 
-using Rust's Cargo package manager.
+If something doesn't work as expected, please follow the **manual installation instructions** instead.
 
-Therefore, I will be providing a manual installation guide explaining how to install **Matugen**
-and all other required dependencies.
+### Run the installer
 
-Please follow the manual installation instructions until the installer has been fixed.
+Copy and paste the following commands into PowerShell:
 
-Thank you for your understanding!
+```powershell
+$temp = "$env:TEMP\Winux"
+
+New-Item -ItemType Directory -Force -Path $temp | Out-Null
+
+irm https://raw.githubusercontent.com/cogypinguinbusiness-ctrl/Winux/main/installer.ps1 -OutFile "$temp\installer.ps1"
+irm https://raw.githubusercontent.com/cogypinguinbusiness-ctrl/Winux/main/functions.ps1 -OutFile "$temp\functions.ps1"
+
+& "$temp\installer.ps1"
+```
 
 # Manual Installation Guide
 
