@@ -1,7 +1,14 @@
-#Installer made by me, the creator of the Winux project
-#I hope everything work's as it should!
-#had to update the installer script because the old one didn't work properly!
+#Installer made by the creator of Winux project
+#I hope everything work's as intented!
 
+#*************
+#*INFORMATION*
+#*************
+#"Write-Status is the function name, 
+#check "functions.ps1" for additional information!
+
+
+."$PSScriptRoot\functions.ps1" #importing function from another powershell file
 Write-Host "                                                                       
 ██╗    ██╗██╗███╗   ██╗██╗   ██╗██╗  ██╗
 ██║    ██║██║████╗  ██║██║   ██║╚██╗██╔╝
@@ -11,145 +18,129 @@ Write-Host "
  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝" 
                                           
 
-Write-Host "     - - - - -"  -ForegroundColor Red
-Write-Host "    installer v2.0"  -ForegroundColor Cyan
-Write-Host ""
-Write-Host "[" -ForegroundColor Gray -NoNewLine
-Write-Host "Installing rust..."   -ForegroundColor yellow -NoNewLine
-Write-Host "]" -ForegroundColor Gray -NoNewLine
+Write-Host "     +- _ - _ -+"  -ForegroundColor Red
+Write-Host "    installer v3.0"  -ForegroundColor Cyan
+Write-Host "     +_ - _ - _+"  -ForegroundColor Red
 Write-Host ""
 
-try { 
+$ans = Read-Host ("Do you want to enable verbose mode [Y]es [N]o").ToLower()
 
-    winget install --id Rustlang.Rustup -e *> $null
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "*Rust was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing rust
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""
-
-} catch {
-
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                         #if rust cannot be installed, it powershell prints an error
-        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
-        Write-Host ""                                      
-        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
-        Write-Host ""
-    }
-
+if ($ans -eq "yes" -or $ans -eq "y" ) {
+    $VerbosePreference = "Continue"
+    Write-Status "Verbose mode enabled successfully" "Green"
+} else {
+    Write-Status "Skipping verbose mode..."
+    $VerbosePreference = "SilentlyContinue"
 }
 
-try {
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "Trying to refrash pwsh path..." -ForegroundColor Yellow -NoNewline  #Tries to refrash path
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
-                [Environment]::GetEnvironmentVariable("Path", "User")
-                Write-Host ""
-                if ($?) {  Write-Host "[" -ForegroundColor Gray -NoNewline
-                           Write-Host "*SUCCESSFUL*" -ForegroundColor Green -NoNewline  
-                           Write-Host "]" -ForegroundColor Gray -NoNewLine}
-                           Write-Host ""
-} catch {
-        Write-Host ""
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*FAILED TO REFRESH PATH!"   -ForegroundColor Red -NoNewLine 
-        Write-Host "]" -ForegroundColor Gray -NoNewLine
-        Write-Host ""
-}
+Write-Status "Checking whether rust is installed..."
+Write-Verbose 'Running "Get-Command"'
+$result = Get-Command rustc -ErrorAction SilentlyContinue
 
-Write-Host "[" -ForegroundColor Gray -NoNewLine
-Write-Host "Installing matugen..."   -ForegroundColor yellow -NoNewLine
-Write-Host "]" -ForegroundColor Gray -NoNewLine
-Write-Host ""
-
-try {
-    cargo install matugen *> $null
-    if ($LASTEXITCODE -eq 0) {
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "*Matugen was installed successfully*" -ForegroundColor Green -NoNewline  #Tries installing matugen
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""
-}
- }
-catch {
-        Write-Host ""
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*FAILED TO INSTALL MATUGEN!"   -ForegroundColor Red -NoNewLine 
-        Write-Host "]" -ForegroundColor Gray -NoNewLine
-        Write-Host ""
-}
+if ($null -eq $result) {
+    Write-Status "Rust isn't installed!" "Red"
+    Write-Status "Installing rust"
+    Write-Verbose 'Using "WinGet" package manager to install rust'
     try {
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "Trying to refrash pwsh path..." -ForegroundColor Yellow -NoNewline  #Tries to refrash path
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
-                [Environment]::GetEnvironmentVariable("Path", "User")
-                Write-Host ""
-                if ($?) {  Write-Host "[" -ForegroundColor Gray -NoNewline
-                           Write-Host "*SUCCESSFUL*" -ForegroundColor Green -NoNewline  
-                           Write-Host "]" -ForegroundColor Gray -NoNewLine}
-                           Write-Host ""
-} catch {
-        Write-Host ""
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*FAILED TO REFRESH PATH!"   -ForegroundColor Red -NoNewLine 
-        Write-Host "]" -ForegroundColor Gray -NoNewLine
-        Write-Host ""
-}
+        
+        Winget install --id Rustlang.Rustup -e --accept-source-agreements --accept-package-agreements
+        if ($LASTEXITCODE -ne 0 ) {
+            Write-Status "Rust installation failed! Exit code: $LASTEXITCODE " "Red"
+        }
 
-    Write-Host "[" -ForegroundColor Gray -NoNewLine
-    Write-Host "Installing cava..."   -ForegroundColor yellow -NoNewLine
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""   
+        else {
+            Write-Status "Rust installed successfully" "Green"
+        }
+          Write-Status "Refreshing environment variables..."
+          Write-Verbose "Reloading PATH from Machine and User environment"
 
-    try { 
+          $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
+                     [Environment]::GetEnvironmentVariable("Path", "User")
 
-    winget install --id karlstav.cava -e *> $null
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "*Cava was installed successfully*" -ForegroundColor Green -NoNewline  
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""
+          Write-Status "Environment variables refreshed!" "Green"
+         }
 
-} catch {
 
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
-        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
-        Write-Host ""                                      
-        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
-        Write-Host ""
+    catch {
+        Write-Status "There was a problem with WinGet" "Red"
+        Write-Debug "Check if Winget is installed"
+        Write-Debug 'Try running " Winget install --id Rustlang.Rustup -e" manuelly'
+        Write-Debug "If error still persists, try installing rust manuelly"
+    }
+     } else {
+        Write-Status "Found rust!" "Green"
+        Write-Status "Trying to upgrade..."
+        Write-Verbose 'Using "Winget upgrade"'
+        winget upgrade --id Rustlang.Rustup --accept-source-agreements --accept-package-agreements
+
+        if ($LASTEXITCODE -eq 0 ) {
+            Write-Status "upgrade completed" "Green"
+        }
+
+        else {
+            Write-Status "Upgrade failed: $LASTEXITCODE " "Red"
+        }
+     }
+
+     $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+
+    if (Test-Path $vswhere) {
+    $vsPath = & $vswhere -latest -products * `
+        -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+        -property installationPath
     }
 
-}
+    if ($vsPath) {
 
-    Write-Host "[" -ForegroundColor Gray -NoNewLine
-    Write-Host "Installing starship..."   -ForegroundColor yellow -NoNewLine
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""   
+    Write-Status "MSVC Build Tools found!" "Green"
+    Write-Status "Trying to upgrade..."
+    winget upgrade --id Microsoft.VisualStudio.2022.BuildTools -e --accept-source-agreements --accept-package-agreements
+    }
+    else {
 
-    try { 
+    Write-Status "MSVC Build Tools not found!" "Red"
+    Write-Status "Trying to install build tools..."
+    Write-Verbose 'using "WinGet upgrade"'
+       if ($LASTEXITCODE -eq 0 ) {
+            Write-Status "upgrade completed" "Green"
+        }
 
-    winget install --id Starship.Starship -e *> $null
-    Write-Host "[" -ForegroundColor Gray -NoNewline
-    Write-Host "*Starship was installed successfully*" -ForegroundColor Green -NoNewline  
-    Write-Host "]" -ForegroundColor Gray -NoNewLine
-    Write-Host ""
+        else {
+            Write-Status "Upgrade failed: $LASTEXITCODE " "Red"
+        }
+    winget install --id Microsoft.VisualStudio.2022.BuildTools -e --accept-source-agreements --accept-package-agreements
+           if ($LASTEXITCODE -eq 0 ) {
+            Write-Status "installation completed" "Green"
+        }
 
-} catch {
-
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "[" -ForegroundColor Gray -NoNewLine
-        Write-Host "*Installation failed!"   -ForegroundColor Red -NoNewLine                                        
-        Write-Host "]" -ForegroundColor Gray  -NoNewLine    
-        Write-Host ""                                      
-        Write-Host $_.Exception.Message -ForegroundColor DarkRed 
-        Write-Host ""
+        else {
+            Write-Status "Installation failed: $LASTEXITCODE " "Red"
+            Write-Debug "Check if Winget is installed"
+            Write-Debug "Try installing build tools manuelly"
+        }
     }
 
+
+Write-Status "Checking whether Matugen is installed..."
+Write-Verbose 'Running "Get-Command"'
+
+$result = Get-Command matugen -ErrorAction SilentlyContinue
+
+if ($null -eq $result) {
+    Write-Status "Matugen isn't installed!" "Red"
+    Write-Status "Installing Matugen..."
+    Write-Verbose 'Using Cargo to install Matugen'
+
+    cargo install matugen
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Status "Matugen installation failed! Exit code: $LASTEXITCODE" "Red"
+    }
+    else {
+        Write-Status "Matugen installed successfully!" "Green"
+    }
 }
-
-Write-Host " =============== [ FINISHED ] =============== "
-
+else {
+    Write-Status "Found Matugen!" "Green"
+    Write-Status "Skipping installation..."
+}
