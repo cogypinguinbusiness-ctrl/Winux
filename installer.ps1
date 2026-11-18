@@ -8,18 +8,19 @@
 #check "functions.ps1" for additional information!
 
 
-."$PSScriptRoot\functions.ps1" #importing function from another powershell file
+."$PSScriptRoot\functions.ps1" 
+$DebugPreference = "Continue" #importing function from another powershell file
 Write-Host "                                                                       
 ██╗    ██╗██╗███╗   ██╗██╗   ██╗██╗  ██╗
 ██║    ██║██║████╗  ██║██║   ██║╚██╗██╔╝
-██║ █╗ ██║██║██╔██╗ ██║██║   ██║ ╚███╔╝ 
-██║███╗██║██║██║╚██╗██║██║   ██║ ██╔██╗ 
+██║ █╗ ██║██║██╔██╗ ██║██║   ██║ ╚███╔╝ ~ beta installer ~
+██║███╗██║██║██║╚██╗██║██║   ██║ ██╔██╗    made by cog 
 ╚███╔███╔╝██║██║ ╚████║╚██████╔╝██╔╝ ██╗
  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝" 
                                           
 
 Write-Host "     +- _ - _ -+"  -ForegroundColor Red
-Write-Host "    installer v3.0"  -ForegroundColor Cyan
+Write-Host "    installer v3.1"  -ForegroundColor Cyan
 Write-Host "     +_ - _ - _+"  -ForegroundColor Red
 Write-Host ""
 
@@ -69,6 +70,8 @@ if ($null -eq $result) {
     }
      } else {
         Write-Status "Found rust!" "Green"
+        $upg = Read-Host ("Do you want to upgrade Rust [Y]es [N]o ").ToLower()
+        if ($upg -eq "y" -or $upg -eq "yes") {
         Write-Status "Trying to upgrade..."
         Write-Verbose 'Using "Winget upgrade"'
         winget upgrade --id Rustlang.Rustup --accept-source-agreements --accept-package-agreements
@@ -80,7 +83,7 @@ if ($null -eq $result) {
         else {
             Write-Status "Upgrade failed: $LASTEXITCODE " "Red"
         }
-     }
+     } }
 
      $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
 
@@ -94,7 +97,10 @@ if ($null -eq $result) {
 
     Write-Status "MSVC Build Tools found!" "Green"
     Write-Status "Trying to upgrade..."
-    winget upgrade --id Microsoft.VisualStudio.2022.BuildTools -e --accept-source-agreements --accept-package-agreements
+    winget install --id Microsoft.VisualStudio.2022.BuildTools -e `
+    --override "--wait --passive --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended" `
+    --accept-source-agreements `
+    --accept-package-agreements
     }
     else {
 
@@ -108,7 +114,10 @@ if ($null -eq $result) {
         else {
             Write-Status "Upgrade failed: $LASTEXITCODE " "Red"
         }
-    winget install --id Microsoft.VisualStudio.2022.BuildTools -e --accept-source-agreements --accept-package-agreements
+        winget install --id Microsoft.VisualStudio.2022.BuildTools -e `
+        --override "--wait --passive --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended" `
+        --accept-source-agreements `
+        --accept-package-agreements
            if ($LASTEXITCODE -eq 0 ) {
             Write-Status "installation completed" "Green"
         }
@@ -119,7 +128,6 @@ if ($null -eq $result) {
             Write-Debug "Try installing build tools manuelly"
         }
     }
-
 
 Write-Status "Checking whether Matugen is installed..."
 Write-Verbose 'Running "Get-Command"'
@@ -144,3 +152,8 @@ else {
     Write-Status "Found Matugen!" "Green"
     Write-Status "Skipping installation..."
 }
+
+Write-Debug "If Matugen installation threw an error, verify that build tools are installed properly"
+Write-Debug "Please visit the Github repository for additional information"
+Write-Debug "https://github.com/cogypinguinbusiness-ctrl/Winux"
+Write-Debug "Please also install Tacky-Borders since it is a required component"
