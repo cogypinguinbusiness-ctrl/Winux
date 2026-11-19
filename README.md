@@ -118,7 +118,13 @@ Install Starship using WinGet:
 
 ```powershell
 winget install --id Starship.Starship -e
+
 ```
+### Tacky Borders
+
+Tacky Borders is needed for Winux to work. Winux will throw an error if it is not installed.
+
+https://github.com/luke-you/tacky-borders
 
 ## 6. Optional Components
 
@@ -127,12 +133,6 @@ winget install --id Starship.Starship -e
 If you want to use Starship with icons and special symbols, install a Nerd Font.
 
 https://github.com/ryanoasis/nerd-fonts
-
-### Tacky Borders
-
-Tacky Borders is recommended for additional desktop customization.
-
-https://github.com/luke-you/tacky-borders
 
 ### btop
 
